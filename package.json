@@ -51,6 +51,9 @@
     "node": ">=8.9"
   },
   "dependencies": {
+    "@types/ejs": "^2.6.0",
+    "ejs": "^2.6.1",
+    "jsdom": "^13.0.0",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
