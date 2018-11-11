@@ -41,8 +41,5 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules/**"],
-  "compileOnSave": false,
-  "paths": {
-    "templates/*": ["src/templates/*"]
-  }
+  "compileOnSave": false
 }
