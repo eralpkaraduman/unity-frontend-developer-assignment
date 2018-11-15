@@ -13,3 +13,6 @@ yarn.lock
 # Project specific
 temp/*
 !temp/.gitignore
+
+assets/*
+!assets/.gitignore
