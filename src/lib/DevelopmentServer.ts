@@ -1,18 +1,18 @@
+import ejs from 'ejs';
 import http from 'http';
 import path from 'path';
-import ejs from 'ejs';
 import * as utils from './utils';
 
-async function renderAssetListHtml(assetNames: Array<string>) {
-    const template = await utils.readFileContents(path.resolve('src', 'templates', '404.ejs'))
+async function renderAssetListHtml(assetNames: ReadonlyArray<string>): Promise<string> {
+    const template = await utils.readFileContents(path.resolve('src', 'templates', '404.ejs'));
     return ejs.render(template, { params: { assetNames } });
 }
 
 function start(
-    assetNames: Array<string>,
+    assetNames: ReadonlyArray<string>,
     onAssetRequested: (assetName: string) => Promise<string>,
     port = 4000,
-    host = '0.0.0.0') {
+    host = '0.0.0.0'): void {
     http.createServer(async (req, res) => {
         const reqUrl = req.url || '';
         if (assetNames.includes(reqUrl)) {
@@ -29,4 +29,4 @@ function start(
     });
 }
 
-export default {start}
+export default {start};

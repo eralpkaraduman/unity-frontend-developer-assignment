@@ -33,7 +33,7 @@ test.afterEach.always(async t => {
 
 test('should generate html file', async t => {
   const {testOutFilePath, testTemplatePath} = t.context as any;
-  await generate(testTemplatePath, testOutFilePath)
+  await generate(testTemplatePath, testOutFilePath);
   t.is(await utils.fileExists(testOutFilePath), true);
 });
 
@@ -41,7 +41,7 @@ test('should apply template parameters', async t => {
   const {testOutFilePath, testTemplatePath} = t.context as any;
   const title = 'TEST TITLE';
   const params = {title};
-  await generate(testTemplatePath, testOutFilePath, params)
+  await generate(testTemplatePath, testOutFilePath, params);
   const generatedHtmlString = await utils.readFileContents(testOutFilePath);
   t.not(generatedHtmlString, templateString);
   const window = new JSDOM(generatedHtmlString).window;

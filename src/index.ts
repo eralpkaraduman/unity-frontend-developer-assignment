@@ -1,8 +1,8 @@
 export * from './lib/HtmlGenerator';
+import path from 'path';
 import DevelopmentServer from './lib/DevelopmentServer';
 import { generate } from './lib/HtmlGenerator';
-import path from 'path';
-import {readFileContents, generateRandomString} from './lib/utils';
+import {generateRandomString, readFileContents} from './lib/utils';
 
 async function generateInterstitialAdUnit(params: any): Promise<string> {
     const templatePath = path.resolve('src', 'templates', 'interstitial-ad-unit.ejs');
@@ -11,7 +11,7 @@ async function generateInterstitialAdUnit(params: any): Promise<string> {
     return outPath;
 }
 
-const assets: { [assetName: string]: (params: any) => Promise<string> } = {
+const assets: { readonly [assetName: string]: (params: any) => Promise<string> } = {
     '/interstitial-ad-unit.html': generateInterstitialAdUnit
 };
 
