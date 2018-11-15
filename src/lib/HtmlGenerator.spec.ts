@@ -1,7 +1,7 @@
 import test from 'ava';
-import path from 'path';
 import fs from 'fs';
-const {JSDOM} = require('jsdom');
+import {JSDOM} from 'jsdom';
+import path from 'path';
 
 import {generate} from './HtmlGenerator';
 import * as utils from './utils';
@@ -15,11 +15,11 @@ const templateString = `
 
 test.beforeEach (async t => {
   t.context = {...t.context,
+    testOutFilePath: path.resolve('temp', `${utils.generateRandomString()}.html`),
     testTemplatePath: await utils.writeFileContents(
       path.resolve('temp', `${utils.generateRandomString()}.ejs`),
       templateString
-    ),
-    testOutFilePath: path.resolve('temp', `${utils.generateRandomString()}.html`)
+    )
   };
 });
 
@@ -28,9 +28,7 @@ test.afterEach.always(async t => {
   try {
     fs.unlinkSync(testOutFilePath);
     fs.unlinkSync(testTemplatePath);
-  }catch(e){
-    t.log(e);
-  }
+  }catch(e){ t.log(e); }
 });
 
 test('should generate html file', async t => {

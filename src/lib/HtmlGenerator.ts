@@ -1,5 +1,4 @@
 import ejs from 'ejs';
-// import path from 'path';
 import * as utils from './utils';
 
 export async function generate(templatePath: string, outPath: string, params: Object = {}) {
