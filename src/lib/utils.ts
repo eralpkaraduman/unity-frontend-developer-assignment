@@ -19,10 +19,7 @@ export async function readFileContents(path: string): Promise<string> {
     return await readFile(path, 'utf8');
   }
   catch(e) {
-    if (e.code === 'ENOENT') {
-      throw new Error('Not Found');
-    }
-    throw e;
+    throw (e.code === 'ENOENT' ? new Error('Not Found') : e);
   }
 }
 

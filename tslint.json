@@ -25,11 +25,7 @@
     "no-class": true,
     "no-mixed-interface": true,
     "no-expression-statement": false,
-    "no-if-statement": true,
-    "semicolon": [
-      true,
-      "always"
-    ]
+    "semicolon": [true, "always"]
     /* end tslint-immutable rules */
   }
 }
