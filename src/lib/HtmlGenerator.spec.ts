@@ -3,13 +3,13 @@ import fs from 'fs';
 import {JSDOM} from 'jsdom';
 import path from 'path';
 
-import {generate} from './HtmlGenerator';
+import {generate, renderTemplate} from './HtmlGenerator';
 import * as utils from './utils';
 
 const templateString = `
 <html>
   <head>
-    <title><%= params.title %></title>
+    <title><%= locals.title %></title>
   </head>
 </html>`;
 
@@ -29,6 +29,14 @@ test.afterEach.always(async t => {
     fs.unlinkSync(testOutFilePath);
     fs.unlinkSync(testTemplatePath);
   }catch(e){ t.log(e); }
+});
+
+test('should render template', async t => {
+  const {testTemplatePath} = t.context as any;
+  const title = 'TEST TITLE';
+  const htmlString = await renderTemplate(testTemplatePath, {title});
+  const window = new JSDOM(htmlString).window;
+  t.is(window.document.title, title);
 });
 
 test('should generate html file', async t => {

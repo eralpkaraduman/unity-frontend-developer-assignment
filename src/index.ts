@@ -2,7 +2,7 @@ export * from './lib/HtmlGenerator';
 import path from 'path';
 import developmentServer from './lib/DevelopmentServer';
 import { generate } from './lib/HtmlGenerator';
-import {generateRandomString, readFileContents} from './lib/utils';
+import { generateRandomString, readFileContents } from './lib/utils';
 
 async function generateInterstitialAdUnit(params: any): Promise<string> {
     const templatePath = path.resolve('src', 'templates', 'interstitial-ad-unit.ejs');

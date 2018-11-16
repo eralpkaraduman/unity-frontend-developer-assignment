@@ -1,3 +1,3 @@
 export default interface AdConfigurationInterface {
-    readonly title: string;
+  readonly title: string;
 }

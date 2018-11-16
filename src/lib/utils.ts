@@ -9,7 +9,10 @@ export function generateRandomString(): string {
   return Math.round(rand).toString(32);
 }
 
-export async function writeFileContents(path: string, contents: string): Promise<string> {
+export async function writeFileContents(
+  path: string,
+  contents: string
+): Promise<string> {
   await writeFile(path, contents);
   return path;
 }
@@ -17,9 +20,8 @@ export async function writeFileContents(path: string, contents: string): Promise
 export async function readFileContents(path: string): Promise<string> {
   try {
     return await readFile(path, 'utf8');
-  }
-  catch(e) {
-    throw (e.code === 'ENOENT' ? new Error('Not Found') : e);
+  } catch (e) {
+    throw e.code === 'ENOENT' ? new Error('Not Found') : e;
   }
 }
 
@@ -27,8 +29,7 @@ export async function fileExists(path: string): Promise<boolean> {
   try {
     await access(path);
     return true;
-  }
-  catch(e) {
+  } catch (e) {
     return false;
   }
 }

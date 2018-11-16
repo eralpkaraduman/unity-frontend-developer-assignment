@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html class="no-js" lang="">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-
-<body>
+<html lang="en">
+  <% include partials/head %>
+  <body>
     <ul>
-        <% params.assetNames.forEach(function(assetName){ %>
-            <li><a href="<%= assetName %>"><%= assetName %></a></li>
-        <% }) %>
+      <% assetNames.forEach(function(assetName){ %>
+      <li><a href="<%= assetName %>"><%= assetName %></a></li>
+      <% }) %>
     </ul>
-</body>
-
+  </body>
 </html>
