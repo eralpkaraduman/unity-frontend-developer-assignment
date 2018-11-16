@@ -1,6 +1,6 @@
 export * from './lib/HtmlGenerator';
 import path from 'path';
-import DevelopmentServer from './lib/DevelopmentServer';
+import developmentServer from './lib/DevelopmentServer';
 import { generate } from './lib/HtmlGenerator';
 import {generateRandomString, readFileContents} from './lib/utils';
 
@@ -16,8 +16,8 @@ const assets: { readonly [assetName: string]: (params: any) => Promise<string> }
 };
 
 // TODO: don't start dev server if not dev mode
-DevelopmentServer.start(Object.keys(assets), async assetName => {
+developmentServer.start(Object.keys(assets), async assetName => {
     const generator = assets[assetName];
     const generatedAssetPath = await generator({ title: 'Hello! ' + generateRandomString()});
-    return await readFileContents(generatedAssetPath);
+    return readFileContents(generatedAssetPath);
 });

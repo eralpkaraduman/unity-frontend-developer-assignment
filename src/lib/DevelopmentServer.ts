@@ -24,8 +24,10 @@ function start(
             res.end(await renderAssetListHtml(assetNames), 'utf-8');
         }
     }).listen(port, host, () => {
-        console.log(`Development server listening on port:${port}`); // tslint:disable-line:no-console
-        console.log(`http://${host}:${port}`); // tslint:disable-line:no-console
+        // tslint:disable-next-line:no-console
+        console.log(`Development server listening on port:${port}`); 
+        // tslint:disable-next-line:no-console
+        console.log(`http://${host}:${port}`);
     });
 }
 
