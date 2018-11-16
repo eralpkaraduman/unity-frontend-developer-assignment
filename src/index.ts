@@ -1,23 +1,23 @@
 export * from './lib/HtmlGenerator';
-import path from 'path';
+
 import developmentServer from './lib/DevelopmentServer';
-import { generate } from './lib/HtmlGenerator';
 import { generateRandomString, readFileContents } from './lib/utils';
 
-async function generateInterstitialAdUnit(params: any): Promise<string> {
-    const templatePath = path.resolve('src', 'templates', 'interstitial-ad-unit.ejs');
-    const outPath = path.resolve('assets', 'interstitial-ad-unit.html');
-    await generate(templatePath, outPath, params);
-    return outPath;
-}
+import AdConfiguration from './lib/generators/AdConfiguration';
+import AdGeneratorInterface from './lib/generators/AdGeneratorInterface';
+import InterstitialAdUnitGenerator from './lib/generators/InterstitialAdUnitGenerator';
 
-const assets: { readonly [assetName: string]: (params: any) => Promise<string> } = {
-    '/interstitial-ad-unit.html': generateInterstitialAdUnit
+const config: AdConfiguration = {
+  title: 'TITLE ' + generateRandomString()
+};
+
+const assetsGenerators: { [assetName: string]: AdGeneratorInterface } = {
+  '/interstitial-ad-unit.html': new InterstitialAdUnitGenerator(config)
 };
 
 // TODO: don't start dev server if not dev mode
-developmentServer.start(Object.keys(assets), async assetName => {
-    const generator = assets[assetName];
-    const generatedAssetPath = await generator({ title: 'Hello! ' + generateRandomString()});
+// instead generate all assets once immediately
+developmentServer.start(Object.keys(assetsGenerators), async assetName => {
+    const generatedAssetPath = await assetsGenerators[assetName].generate();
     return readFileContents(generatedAssetPath);
 });

@@ -17,7 +17,7 @@ test.beforeEach (async t => {
   t.context = {...t.context,
     testOutFilePath: path.resolve('temp', `${utils.generateRandomString()}.html`),
     testTemplatePath: await utils.writeFileContents(
-      path.resolve('temp', `${utils.generateRandomString()}.ejs`),
+      path.resolve('temp', `${utils.generateRandomString()}.ejsx`),
       templateString
     )
   };
@@ -26,8 +26,8 @@ test.beforeEach (async t => {
 test.afterEach.always(async t => {
   const {testOutFilePath, testTemplatePath} = t.context as any;
   try {
-    fs.unlinkSync(testOutFilePath);
     fs.unlinkSync(testTemplatePath);
+    fs.unlinkSync(testOutFilePath);
   }catch(e){ t.log(e); }
 });
 

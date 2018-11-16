@@ -1,0 +1,7 @@
+.thumbnail {
+  max-width: 100%;
+  border-radius: 0.5em;
+}
+.thumbnail-container {
+  padding: 10px;
+}
