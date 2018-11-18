@@ -1,7 +1,39 @@
-.thumbnail {
-  max-width: 100%;
-  border-radius: 0.5em;
-}
-.thumbnail-container {
+.container {
+  justify-content: center;
   padding: 10px;
+  padding-top: 44px;
+}
+
+.thumbnail-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.description-container {
+  padding-top: 20px;
+}
+
+.button-container {
+  display: flex;
+  padding-top: 20px;
+  justify-content: center;
+}
+
+.link-button {
+  display: flex;
+  margin: 10px;
+}
+
+.description {
+  text-align: center;
+}
+
+.thumbnail {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  max-height: 800px;
+  object-fit: contain;
+  border-radius: 0.5em;
 }

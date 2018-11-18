@@ -16,3 +16,6 @@ temp/*
 
 assets/*
 !assets/.gitignore
+
+# System
+.DS_Store

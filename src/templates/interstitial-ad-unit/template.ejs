@@ -5,8 +5,35 @@
     <style><% include style.css %></style>
   </head>
   <body>
-    <div class="thumbnail-container">
-      <img class="thumbnail" src="https://imgplaceholder.com/800x800/333333/1b1b1b" />
+    <div class="row container">
+      <div class="col-sm-12 col-md-4">
+        <div class="row">
+
+          <div class="col-xs-12 thumbnail-container">
+            <img
+              class="thumbnail"
+              src="<%= image %>"
+              alt="thumbnail"
+            />
+          </div>
+
+          <div class="col-sm-12 description-container">
+            <p class="description">
+              <%= description %>
+            <p />
+          </div>
+          
+          <div class="col-sm-12 button-container">
+            <a
+              href="<%= locals.buttonLink || '#' %>""
+              class="button primary link-button"
+            >
+              <%= locals.buttonText || 'Download For Free' %>
+            </a>
+          </div>
+          
+        </div>
+      </div>
     </div>
   </body>
 </html>

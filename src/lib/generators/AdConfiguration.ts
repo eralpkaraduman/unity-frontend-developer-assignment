@@ -1,3 +1,5 @@
 export default interface AdConfiguration {
-  readonly title: string;
+  title: string;
+  images: string[];
+  description: string;
 }

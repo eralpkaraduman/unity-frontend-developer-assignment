@@ -1,14 +1,18 @@
 export * from './lib/HtmlGenerator';
 
 import developmentServer from './lib/DevelopmentServer';
-import { generateRandomString, readFileContents } from './lib/utils';
+import { readFileContents } from './lib/utils';
 
 import AdConfiguration from './lib/generators/AdConfiguration';
 import AdGeneratorInterface from './lib/generators/AdGeneratorInterface';
 import InterstitialAdUnitGenerator from './lib/generators/InterstitialAdUnitGenerator';
 
 const config: AdConfiguration = {
-  title: 'TITLE ' + generateRandomString()
+  title: 'Interstitial Ad Unit',
+  images: ['https://imgplaceholder.com/800x800'],
+  description: `
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.`
 };
 
 const assetsGenerators: { [assetName: string]: AdGeneratorInterface } = {

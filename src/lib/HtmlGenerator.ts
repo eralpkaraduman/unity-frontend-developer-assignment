@@ -1,6 +1,9 @@
 import ejs from 'ejs';
 import * as utils from './utils';
+import path from 'path';
 import {minify} from 'html-minifier';
+// const miniCssPath = path.resolve('node_modules', 'mini.css', 'dist', 'mini-default.css');
+const miniCssPath = path.resolve('node_modules', 'mini.css', 'dist', 'mini-dark.css');
 
 const minifierOptions = {
   collapseWhitespace: true,
@@ -25,7 +28,8 @@ export async function generate(
   outPath: string,
   params: any = {},
   shouldMinify: boolean = true): Promise<string> {
-  let htmlString = await renderTemplate(templatePath, params);
+  const miniCss = await utils.readFileContents(miniCssPath);
+  let htmlString = await renderTemplate(templatePath, {...params, miniCss});
   if (false || shouldMinify) {
     htmlString = minify(htmlString, minifierOptions);
   }

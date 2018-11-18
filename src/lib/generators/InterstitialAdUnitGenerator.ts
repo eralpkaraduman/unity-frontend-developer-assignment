@@ -15,8 +15,12 @@ export default class InterstitialAdUnitGenerator implements AdGeneratorInterface
   }
 
   async generate(): Promise<string> {
-    const {title} = this.configuration;
-    await HTMLGenerator.generate(templatePath, outPath, {title})
+    const {title, images, description} = this.configuration;
+    const [image] = images;
+    await HTMLGenerator.generate(
+      templatePath, outPath,
+      {title, image, description}
+    )
     return outPath;
   }
 }
