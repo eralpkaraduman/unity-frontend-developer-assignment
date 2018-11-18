@@ -1,5 +1,7 @@
 export default interface AdConfiguration {
-  title: string;
+  title?: string;
+  buttonUrl: string;
   images: string[];
+  buttonText: string;
   description: string;
 }

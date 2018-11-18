@@ -2,8 +2,10 @@ import ejs from 'ejs';
 import * as utils from './utils';
 import path from 'path';
 import {minify} from 'html-minifier';
-// const miniCssPath = path.resolve('node_modules', 'mini.css', 'dist', 'mini-default.css');
-const miniCssPath = path.resolve('node_modules', 'mini.css', 'dist', 'mini-dark.css');
+const miniCssPath = path.resolve(
+  'node_modules', 'mini.css',
+  'dist', 'mini-default.min.css'
+);
 
 const minifierOptions = {
   collapseWhitespace: true,

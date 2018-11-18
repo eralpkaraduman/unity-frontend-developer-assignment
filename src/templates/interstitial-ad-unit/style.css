@@ -1,17 +1,35 @@
 .container {
   justify-content: center;
   padding: 10px;
-  padding-top: 44px;
+  padding-bottom: 20px;
 }
 
 .thumbnail-container {
-  display: flex;
-  justify-content: center;
   width: 100%;
+}
+
+.thumbnail {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  object-fit: scale-down;
+  max-height: 800px;
+  max-width: 800px;
+  border-radius: 0.5em;
 }
 
 .description-container {
   padding-top: 20px;
+}
+
+.link-button {
+  width: 100%;
+  font-weight: bold;
+  border-radius: 0.5em;
+  text-align: center;
+  margin: 0px !important;
 }
 
 .button-container {
@@ -20,20 +38,6 @@
   justify-content: center;
 }
 
-.link-button {
-  display: flex;
-  margin: 10px;
-}
-
 .description {
   text-align: center;
-}
-
-.thumbnail {
-  width: 100%;
-  height: auto;
-  max-width: 800px;
-  max-height: 800px;
-  object-fit: contain;
-  border-radius: 0.5em;
 }

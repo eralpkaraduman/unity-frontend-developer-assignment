@@ -9,9 +9,9 @@ function start(
   host = '0.0.0.0'
 ): void {
   http.createServer(async (req, res) => {
-    const reqUrl = req.url || '';
-    if (assetNames.includes(reqUrl)) {
-      const assetContent = await onAssetRequested(reqUrl);
+    const reqAssetName = (req.url || '').replace(/^\/+/g, '');
+    if (assetNames.includes(reqAssetName)) {
+      const assetContent = await onAssetRequested(reqAssetName);
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(assetContent, 'utf-8');
     } else {

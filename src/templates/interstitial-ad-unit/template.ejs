@@ -11,22 +11,23 @@
 
           <div class="col-xs-12 thumbnail-container">
             <img
+              id="thumbnail"
               class="thumbnail"
               src="<%= image %>"
-              alt="thumbnail"
             />
           </div>
 
           <div class="col-sm-12 description-container">
-            <p class="description">
+            <p id="description" class="description">
               <%= description %>
             <p />
           </div>
           
           <div class="col-sm-12 button-container">
             <a
-              href="<%= locals.buttonLink || '#' %>""
-              class="button primary link-button"
+              id="button"
+              href="<%= locals.buttonUrl %>"
+              class="button primary large link-button"
             >
               <%= locals.buttonText || 'Download For Free' %>
             </a>

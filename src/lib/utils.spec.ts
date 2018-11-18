@@ -5,7 +5,8 @@ import fs from 'fs';
 import {
   generateRandomString,
   writeFileContents,
-  readFileContents
+  readFileContents,
+  NotFoundError
 } from './utils';
 
 test('should generate random file name', async t => {
@@ -46,7 +47,7 @@ test('should be able to read a file', async t => {
   t.is(contents, testFileContents);
   await t.throwsAsync(
     async () => await await readFileContents(missingFilePath),
-    'Not Found'
+    NotFoundError.message
   );
 });
 
