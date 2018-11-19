@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const NotFoundError = new Error('NOT_FOUND_ERROR');
+export const InvalidResponseError = new Error('INVALID_RESPONSE_ERROR');
 
 export interface AppData {
   readonly title?: string;
@@ -31,16 +32,17 @@ async function searchAppleItunes(term: string, country: string ='us'): Promise<A
   }
 }
 
-export function parseAppStoreResponse(response: any): AppData {
-  const [firstResult] = response.results;
-  if (!firstResult){ throw NotFoundError; }
-  const { screenshotUrls } = firstResult;
+export function parseAppStoreResponse(appId: string, response?: any): AppData {
+  if (!response || !(response.results)) throw InvalidResponseError;
+  const [result] = response.results.filter((result: any) => String(result.trackId) === appId);
+  if (!result){ throw NotFoundError; }
+  const { screenshotUrls } = result;
   const imageUrls = screenshotUrls ? screenshotUrls.map((url: string) => url) : [];
   return {
-    description: firstResult.description,
-    downloadUrl: firstResult.trackViewUrl,
+    description: result.description,
+    downloadUrl: result.trackViewUrl,
     imageUrls,
-    title: firstResult.trackName,
+    title: result.trackName,
   };
 }
 
