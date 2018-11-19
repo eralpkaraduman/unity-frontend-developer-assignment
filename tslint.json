@@ -9,13 +9,37 @@
     "readonly-keyword": true,
     "readonly-array": true,
     "no-let": true,
-    "no-object-mutation": true,
     "no-delete": true,
     "no-this": true,
     "no-class": true,
     "no-mixed-interface": true,
     "no-expression-statement": false,
-    "semicolon": [true, "always"],
-    "indent": [true, "spaces", 2]
+    "semicolon": true,
+    "indent": [true, "spaces", 2],
+    "no-return-await": false,
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      },
+      {
+        "call-signature": "onespace",
+        "index-signature": "onespace",
+        "parameter": "onespace",
+        "property-declaration": "onespace",
+        "variable-declaration": "onespace"
+      }
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ]
   }
 }

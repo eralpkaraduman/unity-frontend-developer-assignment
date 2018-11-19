@@ -10,17 +10,17 @@ import AdGeneratorInterface from './lib/generators/AdGeneratorInterface';
 import InterstitialAdUnit from './lib/generators/InterstitialAdUnit';
 
 const config: AdConfiguration = {
-  title: 'Interstitial Ad Unit',
-  buttonUrl: '#',
-  images: ['https://imgplaceholder.com/800x800'],
   buttonText: 'Download For Free',
+  buttonUrl: '#',
   description: `
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-    ut labore et dolore magna aliqua.`
+    ut labore et dolore magna aliqua.`,
+  images: ['https://imgplaceholder.com/800x800'],
+  title: 'Interstitial Ad Unit',
 };
 
-const assetsGenerators: { [assetName: string]: AdGeneratorInterface } = {
-  'interstitial-ad-unit.html': new InterstitialAdUnit(config)
+const assetsGenerators: { readonly [assetName: string]: AdGeneratorInterface } = {
+  'interstitial-ad-unit.html': new InterstitialAdUnit(config),
 };
 
 // TODO: don't start dev server if not dev mode

@@ -8,17 +8,17 @@ import * as utils from '../utils';
 import InterstitialAdUnit, {
   DescriptionTooLongError,
   ButtonTextTooLongError,
-  ImageUrlMissingError
+  ImageUrlMissingError,
 } from './InterstitialAdUnit';
 import AdConfiguration from './AdConfiguration';
 
 const validAdConfig: AdConfiguration = {
   buttonText: 'Download For Free',
   buttonUrl: 'https://google.com',
-  images: ['https://imgplaceholder.com/800x800'],
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit '+
-  'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-}
+  'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  images: ['https://imgplaceholder.com/800x800'],
+};
 
 test.beforeEach (async t => {
   t.context = {...t.context,
@@ -46,14 +46,14 @@ test('it should generate ad unit', async t => {
   const descriptionEl = window.document.getElementById("description") as HTMLElement;
   t.is(descriptionEl.textContent, validAdConfig.description);
   const thumbnailEl = window.document.getElementById("thumbnail") as HTMLImageElement;
-  t.is(thumbnailEl.src, validAdConfig.images[0])
+  t.is(thumbnailEl.src, validAdConfig.images[0]);
 });
 
 test('it should not accept button text that exceeds limit', async t => {
   const {testOutFilePath} = t.context as any;
   const generator = new InterstitialAdUnit({...validAdConfig,
     buttonText: 'A Too long button text consectetur adipiscing elit, sed do eiusmod tempor.'
-  })
+  });
   await t.throwsAsync(async () => 
     await generator.generate(testOutFilePath),
     ButtonTextTooLongError.message
@@ -67,7 +67,7 @@ test('it should not accept description that exceeds limit', async t => {
     consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
     labore et dolore magna aliqua. Lorem ipsum dolor sit amet,
     consectetur adipiscing elit, sed do eiusmod tempor incididunt.`
-  })
+  });
   await t.throwsAsync(async () => 
     await generator.generate(testOutFilePath),
     DescriptionTooLongError.message
@@ -81,6 +81,6 @@ test('it should not accept a config with image url missing', async t => {
   });
   await t.throwsAsync(async () => 
     await generator.generate(testOutFilePath),
-    ImageUrlMissingError.message
+    ImageUrlMissingError.message,
   );
 });

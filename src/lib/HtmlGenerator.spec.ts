@@ -17,9 +17,9 @@ test.beforeEach (async t => {
   t.context = {...t.context,
     testOutFilePath: path.resolve('temp', `${utils.generateRandomString()}.html`),
     testTemplatePath: await utils.writeFileContents(
-      path.resolve('temp', `${utils.generateRandomString()}.ejsx`),
-      templateString
-    )
+      path.resolve('temp', `${utils.generateRandomString()}.ejs`),
+      templateString,
+    ),
   };
 });
 

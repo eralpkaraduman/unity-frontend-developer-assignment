@@ -13,7 +13,7 @@ export function generateRandomString(): string {
 
 export async function writeFileContents(
   path: string,
-  contents: string
+  contents: string,
 ): Promise<string> {
   await writeFile(path, contents);
   return path;
