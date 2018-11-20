@@ -6,7 +6,7 @@ function start(
   assetNames: ReadonlyArray<string>,
   onAssetRequested: (assetName: string) => Promise<string>,
   port = 1234,
-  host = '0.0.0.0'
+  host = '0.0.0.0',
 ): void {
   http.createServer(async (req, res) => {
     const reqAssetName = (req.url || '').replace(/^\/+/g, '');
@@ -19,9 +19,9 @@ function start(
       res.end(
         await renderTemplate(
           path.resolve('src', 'templates', '404.ejs'),
-          {assetNames}
+          {assetNames},
         ),
-        'utf-8'
+        'utf-8',
       );
     }
   })

@@ -16,8 +16,10 @@ export interface SearchAppResponse {
 }
 
 async function searchApp(appleItunesId: string): Promise<SearchAppResponse> {
+  const itunesResponse = await searchAppleItunes(appleItunesId);
+  const itunesAppData = parseAppStoreResponse(appleItunesId, itunesResponse);
   return {
-    appleItunes: await searchAppleItunes(appleItunesId),
+    appleItunes: itunesAppData,
     googlePlayStore: undefined, // TODO: Google PlayStore is not implemented
   };
 }
@@ -33,8 +35,10 @@ async function searchAppleItunes(term: string, country: string ='us'): Promise<A
 }
 
 export function parseAppStoreResponse(appId: string, response?: any): AppData {
-  if (!response || !(response.results)) throw InvalidResponseError;
-  const [result] = response.results.filter((result: any) => String(result.trackId) === appId);
+  if (!response || !(response.results)) { throw InvalidResponseError; }
+  const [result] = response.results.filter(({trackId}: any) => {
+    return String(trackId) === appId;
+  });
   if (!result){ throw NotFoundError; }
   const { screenshotUrls } = result;
   const imageUrls = screenshotUrls ? screenshotUrls.map((url: string) => url) : [];
