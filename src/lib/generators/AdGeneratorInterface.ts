@@ -1,6 +1,6 @@
 import AdConfiguration from './AdConfiguration';
 
 export default interface AdGeneratorInterface {
-  configuration: AdConfiguration;
+  setConfiguration(configuration: AdConfiguration): AdGeneratorInterface;
   generate(outPath: string): Promise<string>;
 }

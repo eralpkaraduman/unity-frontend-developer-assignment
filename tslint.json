@@ -10,13 +10,14 @@
     "readonly-array": true,
     "no-let": true,
     "no-delete": true,
-    "no-this": true,
-    "no-class": true,
-    "no-mixed-interface": true,
     "no-expression-statement": false,
     "semicolon": true,
     "indent": [true, "spaces", 2],
     "no-return-await": false,
+    "no-trailing-whitespace": [
+      true,
+      "ignore-comments"
+    ],
     "typedef-whitespace": [
       true,
       {

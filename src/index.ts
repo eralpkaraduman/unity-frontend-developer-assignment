@@ -5,10 +5,10 @@ import path from 'path';
 import developmentServer from './lib/DevelopmentServer';
 import { readFileContents, writeFileContents } from './lib/utils';
 
+import AppDataAggregator from './lib/AppDataAggregator';
 import AdConfiguration from './lib/generators/AdConfiguration';
 import AdGeneratorInterface from './lib/generators/AdGeneratorInterface';
 import InterstitialAdUnit from './lib/generators/InterstitialAdUnit';
-import AppDataAggregator from './lib/AppDataAggregator';
 
 // tslint:disable-next-line:interface-over-type-literal
 type AssetGenerators = { readonly[assetName: string]: AdGeneratorInterface };
@@ -34,8 +34,8 @@ async function buildAssetGenerators(): Promise<AssetGenerators> {
   };
 
   return {
-    '0-interstitial-ad-unit.html': new InterstitialAdUnit(staticAdConfig),
-    '1-dynamic-interstitial-ad-unit.html': new InterstitialAdUnit(dynamicAdConfig),
+    '0-interstitial-ad-unit.html': new InterstitialAdUnit().setConfiguration(staticAdConfig),
+    '1-dynamic-interstitial-ad-unit.html': new InterstitialAdUnit().setConfiguration(dynamicAdConfig),
   };
 }
 
@@ -61,10 +61,8 @@ async function handleOnGenerateAsset(assetGenerators: AssetGenerators, assetName
 // Begin
 buildAssetGenerators().then(async assetGenerators => {
   const assetNames = Object.keys(assetGenerators);
-
   // generate all assets
   await Promise.all(assetNames.map(assetName => handleOnGenerateAsset(assetGenerators, assetName)));
-  
   // TODO: don't start dev server if not dev mode
   // instead generate all assets once immediately
   developmentServer.start(assetNames, async assetName => {
