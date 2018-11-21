@@ -11,11 +11,14 @@ export const ButtonTextTooLongError = new Error('BUTTON_TEXT_TOO_LONG');
 export const ImageUrlMissingError = new Error('IMAGE_URL_MISSING');
 
 export default class InterstitialAdUnitGenerator implements AdGeneratorInterface {
-  private configuration: AdConfiguration | undefined; // tslint:disable-line:readonly-keyword
+  private adConfig!: AdConfiguration; // tslint:disable-line:readonly-keyword
 
-  public setConfiguration(configuration: AdConfiguration): InterstitialAdUnitGenerator {
-    this.configuration = configuration;
-    return this;
+  public set configuration(configuration: AdConfiguration) {
+    this.adConfig = configuration;
+  }
+
+  public get configuration(): AdConfiguration {
+    return this.adConfig;
   }
 
   public async generate(outPath: string): Promise<string> {
