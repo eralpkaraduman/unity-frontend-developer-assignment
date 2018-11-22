@@ -8,7 +8,8 @@ import { readFileContents, writeFileContents } from './lib/utils';
 import AppDataAggregator from './lib/AppDataAggregator';
 import AdConfiguration from './lib/generators/AdConfiguration';
 import AdGeneratorInterface from './lib/generators/AdGeneratorInterface';
-import InterstitialAdUnit from './lib/generators/InterstitialAdUnit';
+import InterstitialAdUnit from './lib/generators/InterstitialAdUnitGenerator';
+import InterstitialCarouselAdUnitGenerator from './lib/generators/InterstitialCarouselAdUnitGenerator';
 
 // tslint:disable-next-line:interface-over-type-literal
 type AssetGenerators = { readonly[assetName: string]: AdGeneratorInterface };
@@ -38,9 +39,13 @@ async function buildAssetGenerators(): Promise<AssetGenerators> {
   const dynamicAdGenerator = new InterstitialAdUnit();
   dynamicAdGenerator.configuration = dynamicAdConfig;
 
+  const dynamicCarouseldAdGenerator = new InterstitialCarouselAdUnitGenerator();
+  dynamicCarouseldAdGenerator.configuration = dynamicAdConfig;
+
   return {
     '0-interstitial-ad-unit.html': staticAdGenerator,
     '1-dynamic-interstitial-ad-unit.html': dynamicAdGenerator,
+    '2-dynamic-carousel-interstitial-ad-unit.html': dynamicCarouseldAdGenerator,
   };
 }
 

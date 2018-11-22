@@ -7,7 +7,7 @@ import * as utils from '../utils';
 import AdConfiguration from './AdConfiguration';
 import InterstitialAdUnit, {
   ImageUrlMissingError,
-} from './InterstitialAdUnit';
+} from './InterstitialAdUnitGenerator';
 
 const validAdConfig: AdConfiguration = {
   buttonText: 'Download',
