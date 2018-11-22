@@ -38,11 +38,11 @@ export async function fileExists(path: string): Promise<boolean> {
 
 export function trimTextWithElipsis(text?: string, limit?: number): string | undefined {
   const elipsis = '...';
-  if (!text) return undefined;
-  text = text!.trim();
-  limit = Math.floor(limit || 0);
-  if (limit <= 0) return text;
-  return !(text.length <= limit) ? 
-    text.substring(0, limit - elipsis.length) + elipsis :
-    text;
+  if (!text) {return undefined;}
+  const trimmedText = text!.trim().split('\n').map(p => p.trim()).join(' ');
+  const clampedLimit = Math.floor(limit || 0);
+  if (clampedLimit <= 0) {return trimmedText;}
+  return !(trimmedText.length <= clampedLimit) ?
+    trimmedText.substring(0, clampedLimit - elipsis.length) + elipsis :
+    trimmedText;
 }

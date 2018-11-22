@@ -22,14 +22,15 @@ test('should generate random file name', async t => {
 test.before(async t => {
   t.context = {
     ...t.context,
-    testFilePath: path.resolve('temp', `${generateRandomString()}.txt`),
     missingFilePath: path.resolve('temp', `${generateRandomString()}.txt`),
-    testFileContents: generateRandomString()
+    testFileContents: generateRandomString(),
+    testFilePath: path.resolve('temp', `${generateRandomString()}.txt`),
   };
 });
 
 test('should be able to write a file', async t => {
   const { testFilePath, testFileContents } = t.context as any;
+  // tslint:disable-next-line:no-let
   let result = null;
   await t.notThrowsAsync(
     async () =>
@@ -41,14 +42,15 @@ test('should be able to write a file', async t => {
 
 test('should be able to read a file', async t => {
   const { testFilePath, testFileContents, missingFilePath } = t.context as any;
+  // tslint:disable-next-line:no-let
   let contents = null;
   await t.notThrowsAsync(
-    async () => (contents = await readFileContents(testFilePath))
+    async () => (contents = await readFileContents(testFilePath)),
   );
   t.is(contents, testFileContents);
   await t.throwsAsync(
     async () => await await readFileContents(missingFilePath),
-    NotFoundError.message
+    NotFoundError.message,
   );
 });
 
@@ -59,8 +61,16 @@ test.after(async t => {
 
 test('should trim text with elipsis', async t => {
   t.is(
-    trimTextWithElipsis('This text should be truncated.', 25),
-    'This text should be tr...',
+    trimTextWithElipsis('A Too long button text consectetur adipiscing elit, sed do eiusmod tempor.', 40),
+    'A Too long button text consectetur ad...',
+  );
+  t.is(trimTextWithElipsis(`
+    A Too long
+    button text
+    consectetur adipiscing
+    elit, sed do
+    eiusmod tempor.`, 40),
+    'A Too long button text consectetur ad...',
   );
   t.is(trimTextWithElipsis(undefined, 10), undefined);
   t.is(trimTextWithElipsis(undefined, NaN), undefined);
