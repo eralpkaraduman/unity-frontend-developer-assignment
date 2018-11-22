@@ -12,6 +12,7 @@ import InterstitialAdUnit from './lib/generators/InterstitialAdUnit';
 
 // tslint:disable-next-line:interface-over-type-literal
 type AssetGenerators = { readonly[assetName: string]: AdGeneratorInterface };
+
 async function buildAssetGenerators(): Promise<AssetGenerators> {
   const staticAdConfig: AdConfiguration = {
     buttonText: 'Download For Free',
@@ -22,6 +23,8 @@ async function buildAssetGenerators(): Promise<AssetGenerators> {
     images: ['https://imgplaceholder.com/800x800'],
     title: 'Interstitial Ad Unit',
   };
+  const staticAdGenerator = new InterstitialAdUnit();
+  staticAdGenerator.configuration = staticAdConfig;
 
   const appSearchResponse = await AppDataAggregator.searchApp('888422857')!;
   const iosAppData = appSearchResponse.appleItunes!;
@@ -32,10 +35,12 @@ async function buildAssetGenerators(): Promise<AssetGenerators> {
     images: iosAppData.imageUrls!,
     title: iosAppData.title!,
   };
+  const dynamicAdGenerator = new InterstitialAdUnit();
+  dynamicAdGenerator.configuration = dynamicAdConfig;
 
   return {
-    '0-interstitial-ad-unit.html': new InterstitialAdUnit().setConfiguration(staticAdConfig),
-    '1-dynamic-interstitial-ad-unit.html': new InterstitialAdUnit().setConfiguration(dynamicAdConfig),
+    '0-interstitial-ad-unit.html': staticAdGenerator,
+    '1-dynamic-interstitial-ad-unit.html': dynamicAdGenerator,
   };
 }
 

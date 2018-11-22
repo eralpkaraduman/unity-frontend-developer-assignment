@@ -6,7 +6,8 @@ import {
   generateRandomString,
   writeFileContents,
   readFileContents,
-  NotFoundError
+  NotFoundError,
+  trimTextWithElipsis,
 } from './utils';
 
 test('should generate random file name', async t => {
@@ -54,4 +55,24 @@ test('should be able to read a file', async t => {
 test.after(async t => {
   const { testFilePath } = t.context as any;
   fs.unlinkSync(testFilePath);
+});
+
+test('should trim text with elipsis', async t => {
+  t.is(
+    trimTextWithElipsis('This text should be truncated.', 25),
+    'This text should be tr...',
+  );
+  t.is(trimTextWithElipsis(undefined, 10), undefined);
+  t.is(trimTextWithElipsis(undefined, NaN), undefined);
+  t.is(trimTextWithElipsis('Test', NaN), 'Test');
+  t.is(trimTextWithElipsis('No elipsis', 10), 'No elipsis');
+  t.is(trimTextWithElipsis('No elipsis', 10.9), 'No elipsis');
+  t.is(trimTextWithElipsis('No elipsis', -10), 'No elipsis');
+  t.is(trimTextWithElipsis('No elipsis', 500), 'No elipsis');
+  t.is(trimTextWithElipsis('No elipsis', -500.0), 'No elipsis');
+  t.is(trimTextWithElipsis('Test', 0), 'Test');
+  t.is(trimTextWithElipsis('Test', -1), 'Test');
+  t.is(trimTextWithElipsis('Test', 0.1), 'Test');
+  t.is(trimTextWithElipsis(' Excess whitespace  ', 17), 'Excess whitespace');
+  t.is(trimTextWithElipsis(' Should trim  ', 10), 'Should ...');
 });

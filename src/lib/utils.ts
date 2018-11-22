@@ -35,3 +35,14 @@ export async function fileExists(path: string): Promise<boolean> {
     return false;
   }
 }
+
+export function trimTextWithElipsis(text?: string, limit?: number): string | undefined {
+  const elipsis = '...';
+  if (!text) return undefined;
+  text = text!.trim();
+  limit = Math.floor(limit || 0);
+  if (limit <= 0) return text;
+  return !(text.length <= limit) ? 
+    text.substring(0, limit - elipsis.length) + elipsis :
+    text;
+}

@@ -35,7 +35,8 @@ test.afterEach.always(async t => {
 
 test('it should generate ad unit', async t => {
   const {testOutFilePath} = t.context as any;
-  const generator = new InterstitialAdUnit().setConfiguration(validAdConfig);
+  const generator = new InterstitialAdUnit()
+  generator.configuration = validAdConfig;
   await t.notThrowsAsync(async () => await generator.generate(testOutFilePath));
   const htmlString = await utils.readFileContents(testOutFilePath);
   t.truthy(htmlString);
@@ -50,14 +51,28 @@ test('it should generate ad unit', async t => {
 });
 
 test('it should sanitize ad configuration', async t => {
-  t.fail();
+  const generator = new InterstitialAdUnit();
+  generator.configuration = {...validAdConfig,
+    buttonText: 'A Too long button text consectetur adipiscing elit, sed do eiusmod tempor.',
+    description: `A Too long description. Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit, sed do eiusmod tempor incididunt.`,
+  };
+  t.is(generator.configuration.buttonText!.length, 40);
+  t.is(generator.configuration.description!.length, 160);
+  t.is(generator.configuration.buttonText!.slice(0, -3), '...');
+  t.is(generator.configuration.description!.slice(0, -3), '...');
 });
 
 test('it should not accept button text that exceeds limit', async t => {
   const {testOutFilePath} = t.context as any;
-  const generator = new InterstitialAdUnit().setConfiguration({...validAdConfig,
-    buttonText: 'A Too long button text consectetur adipiscing elit, sed do eiusmod tempor.',
-  });
+  const generator = new InterstitialAdUnit();
+  generator.configuration = {
+    ...validAdConfig,
+    buttonText:
+      'A Too long button text consectetur adipiscing elit, sed do eiusmod tempor.'
+  };
   await t.throwsAsync(async () =>
     await generator.generate(testOutFilePath),
     ButtonTextTooLongError.message,
@@ -66,12 +81,13 @@ test('it should not accept button text that exceeds limit', async t => {
 
 test('it should not accept description that exceeds limit', async t => {
   const {testOutFilePath} = t.context as any;
-  const generator = new InterstitialAdUnit().setConfiguration({...validAdConfig,
+  const generator = new InterstitialAdUnit()
+  generator.configuration = {...validAdConfig,
     description: `A Too long description. Lorem ipsum dolor sit amet,
     consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
     labore et dolore magna aliqua. Lorem ipsum dolor sit amet,
     consectetur adipiscing elit, sed do eiusmod tempor incididunt.`,
-  });
+  };
   await t.throwsAsync(async () =>
     await generator.generate(testOutFilePath),
     DescriptionTooLongError.message,
@@ -80,9 +96,8 @@ test('it should not accept description that exceeds limit', async t => {
 
 test('it should not accept a config with image url missing', async t => {
   const {testOutFilePath} = t.context as any;
-  const generator = new InterstitialAdUnit().setConfiguration({...validAdConfig,
-    images: [],
-  });
+  const generator = new InterstitialAdUnit();
+  generator.configuration = { ...validAdConfig, images: [] };
   await t.throwsAsync(async () =>
     await generator.generate(testOutFilePath),
     ImageUrlMissingError.message,
