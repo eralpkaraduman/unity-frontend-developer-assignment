@@ -1,15 +1,19 @@
 .container {
-  justify-content: center;
-  padding: 10px;
-  padding-bottom: 20px;
+    justify-content: center;
+    padding: 10px;
+    padding-bottom: 20px;
 }
 
-.thumbnail-container {
+.carousel-container {
+  display: block;
+  white-space: nowrap;
   width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 
 .thumbnail {
-  display: block;
+  display: inline-block;
   width: 100%;
   height: auto;
   background-size: cover;
@@ -25,19 +29,19 @@
 }
 
 .link-button {
-  width: 100%;
-  font-weight: bold;
-  border-radius: 0.5em;
-  text-align: center;
-  margin: 0px !important;
+    width: 100%;
+    font-weight: bold;
+    border-radius: 0.5em;
+    text-align: center;
+    margin: 0px !important;
 }
 
 .button-container {
-  display: flex;
-  padding-top: 20px;
-  justify-content: center;
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
 }
 
 .description {
-  text-align: center;
+    text-align: center;
 }

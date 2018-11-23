@@ -59,7 +59,7 @@ async function handleOnGenerateAsset(assetGenerators: AssetGenerators, assetName
     // tslint:disable-next-line:no-console
     console.error(`[generator] failed to generate asset: ${assetName} error: ${e.message}`);
     return await writeFileContents(outPath, `
-    <html><body>
+    <html><head><meta charset="utf-8" /></head><body>
       <strong>Failed To generate Asset:</strong><br/>
       <strong>${assetName}</strong><br/>
       <strong>Error: ${e.message}</strong>

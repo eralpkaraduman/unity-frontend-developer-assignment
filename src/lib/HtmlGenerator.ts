@@ -1,11 +1,9 @@
 import ejs from 'ejs';
-import * as utils from './utils';
-import path from 'path';
 import {minify} from 'html-minifier';
-const miniCssPath = path.resolve(
-  'node_modules', 'mini.css',
-  'dist', 'mini-default.min.css'
-);
+import path from 'path';
+import * as utils from './utils';
+
+const miniCssPath = path.resolve('node_modules', 'mini.css', 'dist', 'mini-default.min.css');
 
 const minifierOptions = {
   collapseWhitespace: true,
@@ -13,13 +11,13 @@ const minifierOptions = {
   html5: true,
   minifyCSS: true,
   minifyJS: true,
-  useShortDoctype: true
-}
+  useShortDoctype: true,
+};
 
 export function renderTemplate(templatePath: string, data: any = {}): Promise<string> {
   return new Promise((resolve, reject) => {
     ejs.renderFile(templatePath, data, (err, result) => {
-      if (err) return reject(err);
+      if (err) {return reject(err);}
       resolve(result);
     });
   });
@@ -31,10 +29,10 @@ export async function generate(
   params: any = {},
   shouldMinify: boolean = true): Promise<string> {
   const miniCss = await utils.readFileContents(miniCssPath);
-  let htmlString = await renderTemplate(templatePath, {...params, miniCss});
-  if (false || shouldMinify) {
-    htmlString = minify(htmlString, minifierOptions);
-  }
-  await utils.writeFileContents(outPath, htmlString);
+  const htmlString = await renderTemplate(templatePath, {...params, miniCss});
+  await utils.writeFileContents(
+    outPath,
+    shouldMinify ? minify(htmlString, minifierOptions) : htmlString,
+  );
   return outPath;
 }

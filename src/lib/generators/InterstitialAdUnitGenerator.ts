@@ -9,8 +9,8 @@ const templatePath = path.resolve('src', 'templates', 'interstitial-ad-unit', 't
 
 export const ImageUrlMissingError = new Error('IMAGE_URL_MISSING');
 
-const descriptionMaxLength = 160;
-const buttonTextMaxLength = 40;
+export const descriptionMaxLength = 160;
+export const buttonTextMaxLength = 40;
 
 export default class InterstitialAdUnitGenerator implements AdGeneratorInterface { // TODO: rename to ..Generator
   // tslint:disable-next-line:variable-name readonly-keyword
