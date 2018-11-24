@@ -69,7 +69,7 @@ async function handleOnGenerateAsset(assetGenerators: AssetGenerators, assetName
 }
 
 // Begin
-buildAssetGenerators().then(async assetGenerators => {
+buildAssetGenerators().then(async (assetGenerators: AssetGenerators) => {
   const assetNames = Object.keys(assetGenerators);
   // generate all assets
   await Promise.all(assetNames.map(assetName => handleOnGenerateAsset(assetGenerators, assetName)));
@@ -80,4 +80,3 @@ buildAssetGenerators().then(async assetGenerators => {
     return readFileContents(generatedAssetPath);
   });
 });
-
