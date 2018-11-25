@@ -2,8 +2,8 @@ import path from 'path';
 
 import * as HTMLGenerator from '../HtmlGenerator';
 import { trimTextWithElipsis } from '../utils';
-import AdConfiguration from './AdConfiguration';
-import AdGeneratorInterface from './AdGeneratorInterface';
+import AdConfiguration from '../AdConfiguration';
+import AdGeneratorInterface from '../AdGeneratorInterface';
 
 const templatePath = path.resolve('src', 'templates', 'interstitial-ad-unit', 'template.ejs');
 

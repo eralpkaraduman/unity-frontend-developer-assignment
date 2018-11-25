@@ -40,6 +40,8 @@
     "typeRoots": ["node_modules/@types", "src/types"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules/**", "src/templates/interstitial-carousel-ad-unit/script.ts"],
+  "exclude": [
+    "node_modules/**"
+  ],
   "compileOnSave": false
 }

@@ -3,9 +3,9 @@ import path from 'path';
 import { renderTemplate } from './HtmlGenerator';
 
 function start(
+  port: number,
   assetNames: ReadonlyArray<string>,
   onAssetRequested: (assetName: string) => Promise<string>,
-  port = 1234,
   host = '0.0.0.0',
 ): void {
   http.createServer(async (req, res) => {

@@ -4,7 +4,7 @@ import {JSDOM} from 'jsdom';
 import path from 'path';
 
 import * as utils from '../utils';
-import AdConfiguration from './AdConfiguration';
+import AdConfiguration from '../AdConfiguration';
 import InterstitialAdUnit, {
   ImageUrlMissingError,
 } from './InterstitialAdUnitGenerator';

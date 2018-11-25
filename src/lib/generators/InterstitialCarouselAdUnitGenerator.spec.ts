@@ -4,7 +4,7 @@ import path from 'path';
 import * as utils from '../utils';
 import { JSDOM } from 'jsdom';
 
-import AdConfiguration from './AdConfiguration';
+import AdConfiguration from '../AdConfiguration';
 import InterstitialCarouselAdUnitGenerator, {
   TooFewImagesErrorKey
 } from './InterstitialCarouselAdUnitGenerator';

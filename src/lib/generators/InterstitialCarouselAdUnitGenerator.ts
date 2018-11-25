@@ -1,8 +1,8 @@
 import path from 'path';
 import * as HTMLGenerator from '../HtmlGenerator';
-import AdConfiguration from './AdConfiguration';
+import AdConfiguration from '../AdConfiguration';
 import InterstitialAdUnitGenerator from './InterstitialAdUnitGenerator';
-import ScriptTranspiler, { TranspilerError } from './ScriptTranspiler';
+import ScriptTranspiler, { TranspilerError } from '../ScriptTranspiler';
 import { readFileContents } from '../utils';
 
 export const TooFewImagesErrorKey = 'IMAGES_TOO_FEW';

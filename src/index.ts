@@ -1,15 +1,15 @@
-export * from './lib/HtmlGenerator';
-
 import path from 'path';
 
 import developmentServer from './lib/DevelopmentServer';
 import { readFileContents, writeFileContents } from './lib/utils';
 
 import AppDataAggregator from './lib/AppDataAggregator';
-import AdConfiguration from './lib/generators/AdConfiguration';
-import AdGeneratorInterface from './lib/generators/AdGeneratorInterface';
+import AdConfiguration from './lib/AdConfiguration';
+import AdGeneratorInterface from './lib/AdGeneratorInterface';
 import InterstitialAdUnit from './lib/generators/InterstitialAdUnitGenerator';
 import InterstitialCarouselAdUnitGenerator from './lib/generators/InterstitialCarouselAdUnitGenerator';
+
+const DEV_SERVER = process.argv.includes('--dev-server');
 
 // tslint:disable-next-line:interface-over-type-literal
 type AssetGenerators = { readonly[assetName: string]: AdGeneratorInterface };
@@ -43,9 +43,9 @@ async function buildAssetGenerators(): Promise<AssetGenerators> {
   dynamicCarouseldAdGenerator.configuration = dynamicAdConfig;
 
   return {
-    '0-interstitial-ad-unit.html': staticAdGenerator,
-    '1-dynamic-interstitial-ad-unit.html': dynamicAdGenerator,
-    '2-dynamic-carousel-interstitial-ad-unit.html': dynamicCarouseldAdGenerator,
+    '1-interstitial-ad-unit.html': staticAdGenerator,
+    '2-dynamic-interstitial-ad-unit.html': dynamicAdGenerator,
+    '3-dynamic-carousel-interstitial-ad-unit.html': dynamicCarouseldAdGenerator,
   };
 }
 
@@ -71,11 +71,8 @@ async function handleOnGenerateAsset(assetGenerators: AssetGenerators, assetName
 // Begin
 buildAssetGenerators().then(async (assetGenerators: AssetGenerators) => {
   const assetNames = Object.keys(assetGenerators);
-  // generate all assets
   await Promise.all(assetNames.map(assetName => handleOnGenerateAsset(assetGenerators, assetName)));
-  // TODO: don't start dev server if not dev mode
-  // instead generate all assets once immediately
-  developmentServer.start(assetNames, async assetName => {
+  DEV_SERVER && developmentServer.start(1234, assetNames, async assetName => {
     const generatedAssetPath = await handleOnGenerateAsset(assetGenerators, assetName);
     return readFileContents(generatedAssetPath);
   });
