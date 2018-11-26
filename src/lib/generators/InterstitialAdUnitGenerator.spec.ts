@@ -69,3 +69,5 @@ test('it should not accept a config with image url missing', async t => {
     ImageUrlMissingError.message,
   );
 });
+
+test.todo('should not images should not be larger than 800x800px');

@@ -1,43 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <% include ../partials/head %>
-    <style><% include style.css %></style>
-    <script><%- locals.script %></script>
-  </head>
-  <body>
-    <div class="row container">
-      <div class="col-sm-12 col-md-4">
-        <div class="row">
 
+<head>
+  <% include ../partials/head %>
+  <style>
+    <% include style.css %>
+  </style>
+  <script><% - locals.script %></script>
+</head>
+
+<body>
+  <div class="row container-row">
+    <div class="col-sm-12 col-md-4 container-column">
+
+      <div class="row gallery-row">
+        <div class="carousel-wrapper">
+          <button id="carousel-button-left" class="carousel-button">
+            &#x3008;
+          </button>
+          <button id="carousel-button-right" class="carousel-button">
+            &#x3009;
+          </button>
           <div class="col-sm-12">
             <div id="carousel-container">
-                <% for(var i=0; i<images.length; i++) { %>
-                    <img
-                      class="thumbnail"
-                      src="<%= images[i] %>"
-                    />
-                <% } %>
+              <% for(var i=0; i<images.length; i++) { %>
+                <img
+                  id="thumbnail-index-<%=i%>"
+                  class="thumbnail"
+                  src="<%= images[i] %>"
+                />
+              <% } %>
             </div>
           </div>
-
-          <div class="col-sm-12 description-container">
-            <p id="description" class="description">
-              <%= description %>
-            <p />
-          </div>
-          
-          <div class="col-sm-12 button-container">
-            <a
-              id="button"
-              href="<%= locals.buttonUrl %>"
-              class="button primary large link-button"
-            >
-              <%= locals.buttonText || 'Download For Free' %>
-            </a>
-          </div>
         </div>
+
+        <div class="carousel-navigation-dots-container">
+          <% for(var i=0; i<images.length; i++) { %>
+            <button
+              id="carousel-navigation-dot-index-<%=i%>"
+              class="carousel-navigation-dot">
+              &#8226;
+            </button>
+          <% } %>
+        </div>
+
       </div>
+
+      <div class="row description-container">
+        <p id="description" class="col-sm-12 description">
+          <%= description %>
+          <p />
+      </div>
+
+      <div class="row button-container">
+        <a id="button" href="<%= locals.buttonUrl %>" class="col-sm-12 button primary large link-button">
+          <%= locals.buttonText || 'Download For Free' %>
+        </a>
+      </div>
+
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
