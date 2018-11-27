@@ -1,24 +1,24 @@
-import ts from 'typescript';
 import * as tsLint from 'tslint';
+import ts from 'typescript';
 
 export const TypeScriptLintErrorKey = 'TYPE_SCRIPT_LINT_ERROR';
 
 export class TranspilerError extends Error {
-  linterOutput: string;
+  public readonly linterOutput: string;
   constructor(linterOutpur: string) {
     super(TypeScriptLintErrorKey);
     this.linterOutput = linterOutpur;
   }
 }
 
-function transpile(script: string, scriptPathForLogging: string) {
+function transpile(script: string, scriptPathForLogging: string): string {
   const linter = new tsLint.Linter({
     fix: false,
-    formatter: 'stylish'
+    formatter: 'stylish',
   });
   const linterConfiguration = tsLint.Linter.findConfiguration(
     'tslint.json',
-    scriptPathForLogging
+    scriptPathForLogging,
   )!.results!;
   linter.lint(scriptPathForLogging, script, linterConfiguration);
   const { failures: linterFailures, output: linterOutput } = linter.getResult();
@@ -31,15 +31,13 @@ function transpile(script: string, scriptPathForLogging: string) {
     compilerOptions: {
       alwaysStrict: true,
       lib: ['es2017', 'dom'],
-      module: ts.ModuleKind.CommonJS,
+      module: ts.ModuleKind.None,
       moduleResolution: ts.ModuleResolutionKind.NodeJs,
       strict: true,
       target: ts.ScriptTarget.ES3,
-      traceResolution: true
-      
+      traceResolution: true,
     },
-    
-    fileName: scriptPathForLogging
+    fileName: scriptPathForLogging,
   });
   return transpileResult.outputText;
 }

@@ -11,7 +11,7 @@ const minimumImagecount = 3;
 const templateDir = path.resolve(
   'src',
   'templates',
-  'interstitial-carousel-ad-unit'
+  'interstitial-carousel-ad-unit',
 );
 const templatePath = path.resolve(templateDir, 'template.ejs');
 const scriptPath = path.resolve(templateDir, 'script.ts');
@@ -34,7 +34,7 @@ export default class InterstitialCarouselAdUnitGenerator extends InterstitialAdU
     try {
       script = ScriptTranspiler.transpile(
         await readFileContents(scriptPath),
-        scriptPath
+        scriptPath,
       );
     } catch (e) {
       if (e instanceof TranspilerError) {
@@ -43,13 +43,18 @@ export default class InterstitialCarouselAdUnitGenerator extends InterstitialAdU
       throw e;
     }
 
+    const smoothscrollPolyFill = 'window.smoothscroll = ' + await readFileContents(
+      path.resolve('node_modules', 'smoothscroll-polyfill', 'dist', 'smoothscroll.min.js'),
+    );
+
     await HTMLGenerator.generate(templatePath, outPath, {
-      title,
-      images,
-      description,
-      buttonUrl,
       buttonText,
-      script
+      buttonUrl,
+      description,
+      images,
+      script,
+      smoothscrollPolyFill,
+      title,
     });
 
     return outPath;

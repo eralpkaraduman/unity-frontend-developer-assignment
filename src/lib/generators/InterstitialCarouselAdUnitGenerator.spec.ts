@@ -49,7 +49,7 @@ test('it should not accept a config with too few images', async t => {
   };
   await t.throwsAsync(
     async () => await generator.generate(testOutFilePath),
-    TooFewImagesErrorKey
+    TooFewImagesErrorKey,
   );
 });
 
@@ -65,6 +65,6 @@ test('it should generate ad unit', async t => {
   t.is(thumbnailElements.length, validAdConfig.images.length);
   t.is(
     (thumbnailElements.item(3) as HTMLImageElement).src,
-    'https://imgplaceholder.com/800x803'
+    'https://imgplaceholder.com/800x803',
   );
 });

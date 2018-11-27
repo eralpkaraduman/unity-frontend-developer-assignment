@@ -1,3 +1,5 @@
+declare var smoothscroll: any;
+
 interface CarouselElements {
   readonly dotButtons: ReadonlyArray<HTMLButtonElement>;
   readonly leftButton: HTMLButtonElement;
@@ -91,20 +93,6 @@ function registerEventListeners(): void {
   window.addEventListener('resize', () => slideToCurrentIndex());
 }
 
-// Based on: https://gist.github.com/metasansana/beb3e06d423cfbf518eb565e4829ac28#file-debounce-ts
-const debounce = <A>(f: (a: A) => void, delay: number) => {
-  // tslint:disable-next-line:no-let
-  let timer: (number | null) = null;
-  return (a: A) => {
-    if (!timer) {
-      timer = Number(setTimeout(() => f(a), delay));
-    } else {
-      clearTimeout(timer);
-      timer = Number(setTimeout(() => f(a), delay));
-    }
-  };
-};
-
 window.document.addEventListener('DOMContentLoaded', () => {
   carouselElements = {
     dotButtons: Array.from(window.document.getElementsByClassName('carousel-navigation-dot')).map(el => el as HTMLButtonElement),
@@ -116,6 +104,7 @@ window.document.addEventListener('DOMContentLoaded', () => {
     currentIndex: 0,
     numberOfItems: carouselElements.dotButtons.length,
   };
+  smoothscroll.polyfill();
   setActiveDotStyle();
   registerEventListeners();
   slideToCurrentIndex();

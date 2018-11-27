@@ -57,12 +57,14 @@
     "@types/ejs": "^2.6.0",
     "@types/html-minifier": "^3.5.2",
     "@types/jsdom": "^12.2.0",
+    "@types/smoothscroll-polyfill": "^0.3.0",
     "axios": "^0.18.0",
     "ejs": "^2.6.1",
     "html-minifier": "^3.5.21",
     "jsdom": "^13.0.0",
     "mini.css": "^3.0.1",
-    "sha.js": "^2.4.11"
+    "sha.js": "^2.4.11",
+    "smoothscroll-polyfill": "^0.4.3"
   },
   "devDependencies": {
     "@types/rewire": "^2.5.28",
