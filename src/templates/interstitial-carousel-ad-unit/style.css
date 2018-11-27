@@ -27,6 +27,7 @@ body, p, img {
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+    pointer-events: none;
 }
 
 .thumbnail {
@@ -62,7 +63,7 @@ body, p, img {
     outline: 0;
 }
 
-.carousel-navigation-dot:active, .carousel-navigation-dot:focus, .carousel-navigation-dot:hover {
+.carousel-navigation-dot:focus, .carousel-navigation-dot:hover {
     background-color: transparent;
     outline: 0;
 }
@@ -70,6 +71,10 @@ body, p, img {
 .carousel-navigation-dot:active {
     background-color: transparent;
     outline: 0;
+    color: gray;
+}
+
+.carousel-navigation-dot-active {
     color: gray;
 }
 
@@ -130,12 +135,10 @@ body, p, img {
 
 #arrow-left {
     text-align: right;
-    background-color: red;
 }
 
 #arrow-right {
     text-align: left;
-    background-color: blue;
 }
 
 .description-container {
