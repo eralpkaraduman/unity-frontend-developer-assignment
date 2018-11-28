@@ -1,13 +1,12 @@
 import path from 'path';
 
-import developmentServer from './lib/DevelopmentServer';
-import { readFileContents, writeFileContents } from './lib/utils';
-
 import AdConfiguration from './lib/AdConfiguration';
 import AdGeneratorInterface from './lib/AdGeneratorInterface';
 import AppDataAggregator from './lib/AppDataAggregator';
+import developmentServer from './lib/DevelopmentServer';
 import InterstitialAdUnit from './lib/generators/InterstitialAdUnitGenerator';
 import InterstitialCarouselAdUnitGenerator from './lib/generators/InterstitialCarouselAdUnitGenerator';
+import { readFileContents, writeFileContents } from './lib/utils';
 
 type Config = {
   readonly devServerPort: number,

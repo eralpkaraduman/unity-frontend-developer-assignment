@@ -1,0 +1,13 @@
+.download-button {
+  width: 100%;
+  font-weight: bold;
+  border-radius: 0.5em;
+  text-align: center;
+  margin: 0px !important;
+}
+
+.download-button-container {
+  width: 100%;
+  padding-top: 10px;
+  justify-content: center;
+}

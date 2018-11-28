@@ -1,0 +1,30 @@
+<div class="row gallery-row">
+  <div class="carousel-wrapper">
+    <button id="carousel-button-left" class="carousel-button">
+      &#x3008;
+    </button>
+    <button id="carousel-button-right" class="carousel-button">
+      &#x3009;
+    </button>
+    <div class="col-sm-12">
+      <div id="carousel-container">
+        <% for(var i=0; i<images.length; i++) { %>
+          <img
+            id="thumbnail-index-<%=i%>"
+            class="carousel-thumbnail"
+            src="<%= images[i] %>"
+          />
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-navigation-dots-container">
+    <% for(var i=0; i<images.length; i++) { %>
+      <button
+        id="carousel-navigation-dot-index-<%=i%>"
+        class="carousel-navigation-dot">
+        &#8226;
+      </button>
+    <% } %>
+  </div>
+</div>

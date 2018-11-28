@@ -61,7 +61,7 @@ test('it should generate ad unit', async t => {
   const htmlString = await utils.readFileContents(testOutFilePath);
   t.truthy(htmlString);
   const window = new JSDOM(htmlString).window;
-  const thumbnailElements = window.document.getElementsByClassName('thumbnail');
+  const thumbnailElements = window.document.getElementsByClassName('carousel-thumbnail');
   t.is(thumbnailElements.length, validAdConfig.images.length);
   t.is(
     (thumbnailElements.item(3) as HTMLImageElement).src,
