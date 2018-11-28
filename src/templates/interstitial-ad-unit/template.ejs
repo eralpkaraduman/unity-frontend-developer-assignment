@@ -1,40 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <% include ../partials/head %>
-    <style><% include style.css %></style>
-  </head>
-  <body>
-    <div class="row container">
-      <div class="col-sm-12 col-md-4">
-        <div class="row">
 
-          <div class="col-xs-12 thumbnail-container">
-            <img
-              id="thumbnail"
-              class="thumbnail"
-              src="<%= image %>"
-            />
-          </div>
+<head>
+  <% include ../partials/head %>
+  <style>
+    <% include style.css %>
+    <% include ../partials/singleThumbnail.css %>
+    <% include ../partials/description.css %>
+    <% include ../partials/downloadButton.css %>
+  </style>
+  <script><%- locals.script %></script>
+</head>
 
-          <div class="col-sm-12 description-container">
-            <p id="description" class="description">
-              <%= description %>
-            <p />
-          </div>
-
-          <div class="col-sm-12 button-container">
-            <a
-              id="button"
-              href="<%= locals.buttonUrl %>"
-              class="button primary large link-button"
-            >
-              <%= locals.buttonText || 'Download For Free' %>
-            </a>
-          </div>
-          
-        </div>
-      </div>
+<body>
+  <div class="row container-row">
+    <div class="col-sm-12 col-md-4 container-column">
+      <% include ../partials/singleThumbnail.ejs %>
+      <% include ../partials/description.ejs %>
+      <% include ../partials/downloadButton.ejs %>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

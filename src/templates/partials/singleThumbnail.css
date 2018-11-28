@@ -1,0 +1,21 @@
+#thumbnail-container {
+  padding: 0px;
+  margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+}
+
+.thumbnail {
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  background-size: contain;
+  background-position: center;
+  object-fit: scale-down;
+  max-height: 60vh;
+}

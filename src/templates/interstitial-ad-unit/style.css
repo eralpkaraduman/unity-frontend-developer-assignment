@@ -4,40 +4,14 @@
   padding-bottom: 20px;
 }
 
-.thumbnail-container {
-  width: 100%;
-}
-
-.thumbnail {
-  display: block;
-  width: 100%;
-  height: auto;
-  background-size: cover;
-  background-position: center;
-  object-fit: scale-down;
-  max-height: 800px;
-  max-width: 800px;
-  border-radius: 0.5em;
-}
-
-.description-container {
-  padding-top: 20px;
-}
-
-.link-button {
-  width: 100%;
-  font-weight: bold;
-  border-radius: 0.5em;
-  text-align: center;
-  margin: 0px !important;
-}
-
-.button-container {
-  display: flex;
-  padding-top: 20px;
+.container-row {
+  padding: 0px;
+  margin: 0px;
   justify-content: center;
 }
 
-.description {
-  text-align: center;
+.container-column {
+  padding: 10px;
+  margin: 0px;
+  justify-content: center;
 }
