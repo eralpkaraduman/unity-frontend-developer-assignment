@@ -1,9 +1,9 @@
 import path from 'path';
-import * as HTMLGenerator from '../HtmlGenerator';
 import AdConfiguration from '../AdConfiguration';
-import InterstitialAdUnitGenerator from './InterstitialAdUnitGenerator';
+import * as HTMLGenerator from '../HtmlGenerator';
 import ScriptTranspiler, { TranspilerError } from '../ScriptTranspiler';
 import { readFileContents } from '../utils';
+import InterstitialAdUnitGenerator from './InterstitialAdUnitGenerator';
 
 export const TooFewImagesErrorKey = 'IMAGES_TOO_FEW';
 
@@ -23,13 +23,14 @@ export default class InterstitialCarouselAdUnitGenerator extends InterstitialAdU
       images,
       description,
       buttonText,
-      buttonUrl
+      buttonUrl,
     }: AdConfiguration = this.configuration || { images: [] };
 
     if (images.length < minimumImagecount) {
       throw new Error(TooFewImagesErrorKey);
     }
 
+    // tslint:disable-next-line:no-let
     let script;
     try {
       script = ScriptTranspiler.transpile(
@@ -38,14 +39,11 @@ export default class InterstitialCarouselAdUnitGenerator extends InterstitialAdU
       );
     } catch (e) {
       if (e instanceof TranspilerError) {
+        // tslint:disable-next-line:no-console
         console.error(e.linterOutput);
       }
       throw e;
     }
-
-    const smoothscrollPolyFill = 'window.smoothscroll = ' + await readFileContents(
-      path.resolve('node_modules', 'smoothscroll-polyfill', 'dist', 'smoothscroll.min.js'),
-    );
 
     await HTMLGenerator.generate(templatePath, outPath, {
       buttonText,
@@ -53,7 +51,6 @@ export default class InterstitialCarouselAdUnitGenerator extends InterstitialAdU
       description,
       images,
       script,
-      smoothscrollPolyFill,
       title,
     });
 

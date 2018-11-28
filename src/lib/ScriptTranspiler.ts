@@ -32,7 +32,7 @@ function transpile(script: string, scriptPathForLogging: string): string {
       alwaysStrict: true,
       lib: ['es2017', 'dom'],
       module: ts.ModuleKind.None,
-      moduleResolution: ts.ModuleResolutionKind.NodeJs,
+      moduleResolution: ts.ModuleResolutionKind.Classic,
       strict: true,
       target: ts.ScriptTarget.ES3,
       traceResolution: true,

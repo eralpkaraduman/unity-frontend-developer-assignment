@@ -1,5 +1,3 @@
-declare var smoothscroll: any;
-
 interface CarouselElements {
   readonly dotButtons: ReadonlyArray<HTMLButtonElement>;
   readonly leftButton: HTMLButtonElement;
@@ -43,7 +41,7 @@ function slideToIndex(index: number): void {
     currentIndex: index,
   };
   setActiveDotStyle();
-  slideToCurrentIndex();
+  slideToCurrentIndex(true);
 }
 
 function handleOnPreviousImageRequested(): void {
@@ -73,24 +71,27 @@ function setActiveDotStyle(): void {
   });
 }
 
-function slideToCurrentIndex(): void {
+function slideToCurrentIndex(animated: boolean): void {
   const targetScrollPosition = calculateScrollPosition(
     state.currentIndex,
     state.numberOfItems,
     carouselElements.scrollableContainer.scrollWidth,
   );
-  carouselElements.scrollableContainer.scrollTo({
-    behavior: 'smooth',
-    left: targetScrollPosition,
-    top: carouselElements.scrollableContainer.offsetTop,
-  });
+  if (animated) {
+    scrollWithAnimation(targetScrollPosition, 300, carouselElements.scrollableContainer);
+  } else {
+    carouselElements.scrollableContainer.scrollTo({
+      left: targetScrollPosition,
+      top: carouselElements.scrollableContainer.offsetTop,
+    });
+  }
 }
 
 function registerEventListeners(): void {
   carouselElements.leftButton.addEventListener('click', handleOnPreviousImageRequested);
   carouselElements.rightButton.addEventListener('click', handleOnNextImageRequested);
   carouselElements.dotButtons.forEach((button) => button.addEventListener('click', handleOnDotButtonClicked));
-  window.addEventListener('resize', () => slideToCurrentIndex());
+  window.addEventListener('resize', () => slideToCurrentIndex(false));
 }
 
 window.document.addEventListener('DOMContentLoaded', () => {
@@ -104,10 +105,36 @@ window.document.addEventListener('DOMContentLoaded', () => {
     currentIndex: 0,
     numberOfItems: carouselElements.dotButtons.length,
   };
-  smoothscroll.polyfill();
   setActiveDotStyle();
   registerEventListeners();
-  slideToCurrentIndex();
+  slideToCurrentIndex(false);
 });
 
+// Based on: https://gist.github.com/andjosh/6764939
+const scrollWithAnimation = (to: number, duration: number, element: HTMLElement) => {
+  const start = element.scrollLeft;
+  const change = to - start;
+  const startDate = +new Date();
+  const animateScroll = () => {
+    const currentDate = +new Date();
+    const currentTime = currentDate - startDate;
+    element.scrollLeft = parseInt(String(easeInOutQuad(currentTime, start, change, duration)), 10);
+    if (currentTime < duration) {
+      requestAnimationFrame(animateScroll);
+    }
+    else {
+      element.scrollLeft = to;
+    }
+  };
+  animateScroll();
+};
 
+const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
+  // tslint:disable-next-line:no-parameter-reassignment
+  t /= d / 2;
+  if (t < 1) { return c / 2 * t * t + b; }
+  // tslint:disable-next-line:no-parameter-reassignment
+  t--;
+  // tslint:disable-next-line:object-literal-sort-keys
+  return -c / 2 * (t * (t - 2) - 1) + b;
+};
