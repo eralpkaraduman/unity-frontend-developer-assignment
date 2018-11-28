@@ -70,4 +70,8 @@ test('it should not accept a config with image url missing', async t => {
   );
 });
 
-test.todo('should not images should not be larger than 800x800px');
+test('should not accept images larger dimension than the limit', async t => {
+  const generator = new InterstitialAdUnit();
+  t.truthy(await generator.validateImageSize('https://imgplaceholder.com/800x800'));
+  t.falsy(await generator.validateImageSize('https://imgplaceholder.com/900x900'));
+});

@@ -1,5 +1,5 @@
+import sizeOf from 'image-size';
 import path from 'path';
-
 import AdConfiguration from '../AdConfiguration';
 import AdGeneratorInterface from '../AdGeneratorInterface';
 import * as HTMLGenerator from '../HtmlGenerator';
@@ -11,8 +11,9 @@ export const ImageUrlMissingError = new Error('IMAGE_URL_MISSING');
 
 export const descriptionMaxLength = 160;
 export const buttonTextMaxLength = 40;
+export const maxImageDimensions = { width: 800, height: 800 };
 
-export default class InterstitialAdUnitGenerator implements AdGeneratorInterface { // TODO: rename to ..Generator
+export default class InterstitialAdUnitGenerator implements AdGeneratorInterface {
   // tslint:disable-next-line:variable-name readonly-keyword
   private _configuration!: AdConfiguration;
   public set configuration(value: AdConfiguration) {
@@ -25,6 +26,11 @@ export default class InterstitialAdUnitGenerator implements AdGeneratorInterface
 
   public get configuration(): AdConfiguration {
     return this._configuration;
+  }
+
+  public async validateImageSize(imgageUrl: string): Promise<boolean> {
+    // sizeOf;
+    return Boolean(imgageUrl);
   }
 
   public async generate(outPath: string): Promise<string> {
