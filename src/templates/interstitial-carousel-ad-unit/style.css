@@ -1,164 +1,168 @@
-body, p, img {
-    padding: 0px;
-    margin: 0px;
+body,
+p,
+img {
+  padding: 0px;
+  margin: 0px;
 }
 
 .container-row {
-    padding: 0px;
-    margin: 0px;
-    justify-content: center;
+  padding: 0px;
+  margin: 0px;
+  justify-content: center;
 }
 
 .container-column {
-    padding: 10px;
-    margin: 0px;
-    justify-content: center;
+  padding: 10px;
+  margin: 0px;
+  justify-content: center;
 }
 
 .gallery-row {
-    padding: 0px;
-    margin: 0px;
-    justify-content: center;
+  padding: 0px;
+  margin: 0px;
+  justify-content: center;
 }
 
 #carousel-container {
-    padding: 0px;
-    margin: 0px;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-    pointer-events: none;
+  padding: 0px;
+  margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
 }
 
 .thumbnail {
-    padding: 0px;
-    margin: 0px;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    height: auto;
-    background-size: contain;
-    background-position: center;
-    object-fit: scale-down;
-    max-height: 60vh;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  background-size: contain;
+  background-position: center;
+  object-fit: scale-down;
+  max-height: 60vh;
 }
 
 .carousel-navigation-dots-container {
-    display: block;
-    padding: 0px;
-    margin: 0px;
+  display: block;
+  padding: 0px;
+  margin: 0px;
 }
 
 .carousel-navigation-dot {
-    display: inline-block;
-    margin: 0px;
-    padding: 5px;
-    color: lightgray;
-    background-color: transparent;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: bold;
-    font-size: 1em;
-    border: none !important;
-    outline: 0;
+  display: inline-block;
+  margin: 0px;
+  padding: 5px;
+  color: lightgray;
+  background-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 2em;
+  border: none !important;
+  outline: 0;
 }
 
-.carousel-navigation-dot:focus, .carousel-navigation-dot:hover {
-    background-color: transparent;
-    outline: 0;
+.carousel-navigation-dot:focus,
+.carousel-navigation-dot:hover {
+  background-color: transparent;
+  outline: 0;
 }
 
 .carousel-navigation-dot:active {
-    background-color: transparent;
-    outline: 0;
-    color: gray;
+  background-color: transparent;
+  outline: 0;
+  color: gray;
 }
 
 .carousel-navigation-dot-active {
-    color: gray;
+  color: gray;
 }
 
 .carousel-wrapper {
-    position: relative;
-    justify-items: center;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-button {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 40%;
-    z-index: 10;
-    margin: 0px;
-    padding: 0px;
-    background-color: transparent;
-    border: none !important;
-    outline: 0;
-    font-size: 3em;
-    color: gray;
-    font-weight: bold;
-    padding: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  z-index: 10;
+  margin: 0px;
+  padding: 0px;
+  background-color: transparent;
+  border: none !important;
+  outline: 0;
+  font-size: 3em;
+  color: gray;
+  font-weight: bold;
+  padding: 5px;
 }
 
 #carousel-button-left {
-    left: 0;
-    text-align: left;
-    margin-left: -0.5em;
+  left: 0;
+  text-align: left;
+  margin-left: -0.5em;
 }
 
 #carousel-button-right {
-    right: 0;
-    text-align: right;
-    margin-right: -0.5em;
+  right: 0;
+  text-align: right;
+  margin-right: -0.5em;
 }
 
 .carousel-button:active {
-    background-color: transparent;
-    outline: 0;
-    color: black;
+  background-color: transparent;
+  outline: 0;
+  color: black;
 }
 
-.carousel-button:focus, .carousel-button:hover {
-    background-color: transparent;
-    outline: 0;
+.carousel-button:focus,
+.carousel-button:hover {
+  background-color: transparent;
+  outline: 0;
 }
 
 .arrow {
-    margin: 0px;
-    padding: 0px;
-    font-size: 2em;
-    color: darkgrey;
+  margin: 0px;
+  padding: 0px;
+  font-size: 2em;
+  color: darkgrey;
 }
 
 #arrow-left {
-    text-align: right;
+  text-align: right;
 }
 
 #arrow-right {
-    text-align: left;
+  text-align: left;
 }
 
 .description-container {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .link-button {
-    width: 100%;
-    font-weight: bold;
-    border-radius: 0.5em;
-    text-align: center;
-    margin: 0px !important;
+  width: 100%;
+  font-weight: bold;
+  border-radius: 0.5em;
+  text-align: center;
+  margin: 0px !important;
 }
 
 .button-container {
-    width: 100%;
-    padding-top: 10px;
-    justify-content: center;
+  width: 100%;
+  padding-top: 10px;
+  justify-content: center;
 }
 
 .description {
-    text-align: center;
+  text-align: center;
 }

@@ -3,18 +3,25 @@ import path from 'path';
 import developmentServer from './lib/DevelopmentServer';
 import { readFileContents, writeFileContents } from './lib/utils';
 
-import AppDataAggregator from './lib/AppDataAggregator';
 import AdConfiguration from './lib/AdConfiguration';
 import AdGeneratorInterface from './lib/AdGeneratorInterface';
+import AppDataAggregator from './lib/AppDataAggregator';
 import InterstitialAdUnit from './lib/generators/InterstitialAdUnitGenerator';
 import InterstitialCarouselAdUnitGenerator from './lib/generators/InterstitialCarouselAdUnitGenerator';
 
+type Config = {
+  readonly devServerPort: number,
+  readonly appId: {
+    readonly itunes: string,
+    readonly playStore: string,
+  },
+};
+
 const DEV_SERVER = process.argv.includes('--dev-server');
 
-// tslint:disable-next-line:interface-over-type-literal
 type AssetGenerators = { readonly[assetName: string]: AdGeneratorInterface };
 
-async function buildAssetGenerators(): Promise<AssetGenerators> {
+async function buildAssetGenerators(config: Config): Promise<AssetGenerators> {
   const staticAdConfig: AdConfiguration = {
     buttonText: 'Download For Free',
     buttonUrl: '#',
@@ -27,7 +34,7 @@ async function buildAssetGenerators(): Promise<AssetGenerators> {
   const staticAdGenerator = new InterstitialAdUnit();
   staticAdGenerator.configuration = staticAdConfig;
 
-  const appSearchResponse = await AppDataAggregator.searchApp('888422857')!;
+  const appSearchResponse = await AppDataAggregator.searchApp(config.appId.itunes)!;
   const iosAppData = appSearchResponse.appleItunes!;
   const dynamicAdConfig: AdConfiguration = {
     buttonText: 'Download For Free',
@@ -69,11 +76,16 @@ async function handleOnGenerateAsset(assetGenerators: AssetGenerators, assetName
 }
 
 // Begin
-buildAssetGenerators().then(async (assetGenerators: AssetGenerators) => {
+readFileContents('config.json')
+.then(json => JSON.parse(json))
+.then((config: Config) => buildAssetGenerators(config)
+.then(async (assetGenerators: AssetGenerators) => {
   const assetNames = Object.keys(assetGenerators);
   await Promise.all(assetNames.map(assetName => handleOnGenerateAsset(assetGenerators, assetName)));
-  DEV_SERVER && developmentServer.start(1234, assetNames, async assetName => {
-    const generatedAssetPath = await handleOnGenerateAsset(assetGenerators, assetName);
-    return readFileContents(generatedAssetPath);
-  });
-});
+  if (DEV_SERVER) {
+    developmentServer.start(config.devServerPort, assetNames, async assetName => {
+      const generatedAssetPath = await handleOnGenerateAsset(assetGenerators, assetName);
+      return readFileContents(generatedAssetPath);
+    });
+  }
+}));

@@ -1,13 +1,13 @@
 import test from 'ava';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
 import {
   generateRandomString,
-  writeFileContents,
-  readFileContents,
   NotFoundError,
+  readFileContents,
   trimTextWithElipsis,
+  writeFileContents,
 } from './utils';
 
 test('should generate random file name', async t => {
@@ -34,7 +34,7 @@ test('should be able to write a file', async t => {
   let result = null;
   await t.notThrowsAsync(
     async () =>
-      (result = await writeFileContents(testFilePath, testFileContents))
+      (result = await writeFileContents(testFilePath, testFileContents)),
   );
   t.truthy(result);
   t.is(result, testFilePath);

@@ -15,24 +15,26 @@ test('should not transpile a script which does not pass linter', async t => {
   await t.throwsAsync(
     async () =>
       await ScriptTranspiler.transpile(invalidSource, 'invalidSource.ts'),
-    TranspilerError
+    TranspilerError,
   );
 });
 
 test('should transpile', async t => {
+  // tslint:disable-next-line:no-let
   let transpiledScript: string;
   await t.notThrowsAsync(async () => {
     transpiledScript = await ScriptTranspiler.transpile(
       validSource,
-      'validSource.ts'
+      'validSource.ts',
     );
   });
   t.truthy(transpiledScript!);
   t.is(
+    // tslint:disable-next-line:no-eval
     eval(`
     ${transpiledScript!}
     add(2, 3);
   `),
-    5
+    5,
   );
 });

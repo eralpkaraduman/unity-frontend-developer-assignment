@@ -110,7 +110,7 @@ window.document.addEventListener('DOMContentLoaded', () => {
   slideToCurrentIndex(false);
 });
 
-// Based on: https://gist.github.com/andjosh/6764939
+// Implementation is based on: https://gist.github.com/andjosh/6764939
 const scrollWithAnimation = (to: number, duration: number, element: HTMLElement) => {
   const start = element.scrollLeft;
   const change = to - start;
@@ -129,12 +129,11 @@ const scrollWithAnimation = (to: number, duration: number, element: HTMLElement)
   animateScroll();
 };
 
-const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
-  // tslint:disable-next-line:no-parameter-reassignment
+const easeInOutQuad = (currentTime: number, b: number, c: number, d: number) => {
+  // tslint:disable-next-line:no-let
+  let t = currentTime;
   t /= d / 2;
   if (t < 1) { return c / 2 * t * t + b; }
-  // tslint:disable-next-line:no-parameter-reassignment
   t--;
-  // tslint:disable-next-line:object-literal-sort-keys
   return -c / 2 * (t * (t - 2) - 1) + b;
 };

@@ -1,12 +1,12 @@
 import test from 'ava';
 import fs from 'fs';
+import { JSDOM } from 'jsdom';
 import path from 'path';
 import * as utils from '../utils';
-import { JSDOM } from 'jsdom';
 
 import AdConfiguration from '../AdConfiguration';
 import InterstitialCarouselAdUnitGenerator, {
-  TooFewImagesErrorKey
+  TooFewImagesErrorKey,
 } from './InterstitialCarouselAdUnitGenerator';
 
 const validAdConfig: AdConfiguration = {
@@ -19,8 +19,8 @@ const validAdConfig: AdConfiguration = {
     'https://imgplaceholder.com/800x800',
     'https://imgplaceholder.com/800x801',
     'https://imgplaceholder.com/800x802',
-    'https://imgplaceholder.com/800x803'
-  ]
+    'https://imgplaceholder.com/800x803',
+  ],
 };
 
 test.beforeEach(async t => {
@@ -45,7 +45,7 @@ test('it should not accept a config with too few images', async t => {
     images: [
       'https://imgplaceholder.com/800x800',
       'https://imgplaceholder.com/800x800',
-    ]
+    ],
   };
   await t.throwsAsync(
     async () => await generator.generate(testOutFilePath),

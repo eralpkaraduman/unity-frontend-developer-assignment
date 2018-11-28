@@ -35,6 +35,7 @@
         "variable-declaration": "onespace"
       }
     ],
+    "interface-over-type-literal": [false],
     "trailing-comma": [
       true,
       {
