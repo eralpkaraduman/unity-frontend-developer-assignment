@@ -6,7 +6,8 @@ import path from 'path';
 import AdConfiguration from '../AdConfiguration';
 import * as utils from '../utils';
 import InterstitialAdUnit, {
-  ImageUrlMissingError,
+  ImageDimensionsExceedsLimitErrorKey,
+  ImageUrlMissingErrorKey,
 } from './InterstitialAdUnitGenerator';
 
 const validAdConfig: AdConfiguration = {
@@ -64,14 +65,20 @@ test('it should not accept a config with image url missing', async t => {
   const {testOutFilePath} = t.context as any;
   const generator = new InterstitialAdUnit();
   generator.configuration = { ...validAdConfig, images: [] };
-  await t.throwsAsync(async () =>
-    await generator.generate(testOutFilePath),
-    ImageUrlMissingError.message,
+  await t.throwsAsync(
+    async () => await generator.generate(testOutFilePath),
+    ImageUrlMissingErrorKey,
   );
 });
 
 test('should not accept images larger dimension than the limit', async t => {
+  const { testOutFilePath } = t.context as any;
   const generator = new InterstitialAdUnit();
-  t.truthy(await generator.validateImageSize('https://imgplaceholder.com/800x800'));
-  t.falsy(await generator.validateImageSize('https://imgplaceholder.com/900x900'));
+  generator.configuration = {...validAdConfig, images: [
+    'https://imgplaceholder.com/900x800',
+  ]};
+  await t.throwsAsync(
+    async () => await generator.generate(testOutFilePath),
+    ImageDimensionsExceedsLimitErrorKey,
+  );
 });

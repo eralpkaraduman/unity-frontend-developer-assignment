@@ -9,6 +9,8 @@ import InterstitialCarouselAdUnitGenerator, {
   TooFewImagesErrorKey,
 } from './InterstitialCarouselAdUnitGenerator';
 
+import { ImageDimensionsExceedsLimitErrorKey } from './InterstitialAdUnitGenerator';
+
 const validAdConfig: AdConfiguration = {
   buttonText: 'Download',
   buttonUrl: 'https://google.com',
@@ -16,10 +18,10 @@ const validAdConfig: AdConfiguration = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit ' +
     'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   images: [
-    'https://imgplaceholder.com/800x800',
-    'https://imgplaceholder.com/800x801',
-    'https://imgplaceholder.com/800x802',
-    'https://imgplaceholder.com/800x803',
+    'https://imgplaceholder.com/800x700',
+    'https://imgplaceholder.com/800x701',
+    'https://imgplaceholder.com/800x702',
+    'https://imgplaceholder.com/800x703',
   ],
 };
 
@@ -65,6 +67,22 @@ test('it should generate ad unit', async t => {
   t.is(thumbnailElements.length, validAdConfig.images.length);
   t.is(
     (thumbnailElements.item(3) as HTMLImageElement).src,
-    'https://imgplaceholder.com/800x803',
+    'https://imgplaceholder.com/800x703',
+  );
+});
+
+test('should not accept images larger dimension than the limit', async t => {
+  const { testOutFilePath } = t.context as any;
+  const generator = new InterstitialCarouselAdUnitGenerator();
+  generator.configuration = {
+    ...validAdConfig, images: [
+      'https://imgplaceholder.com/700x601',
+      'https://imgplaceholder.com/900x602',
+      'https://imgplaceholder.com/900x603',
+    ],
+  };
+  await t.throwsAsync(
+    async () => await generator.generate(testOutFilePath),
+    ImageDimensionsExceedsLimitErrorKey,
   );
 });

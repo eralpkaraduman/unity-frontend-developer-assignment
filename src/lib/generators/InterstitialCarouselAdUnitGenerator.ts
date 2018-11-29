@@ -3,7 +3,7 @@ import AdConfiguration from '../AdConfiguration';
 import * as HTMLGenerator from '../HtmlGenerator';
 import ScriptTranspiler, { TranspilerError } from '../ScriptTranspiler';
 import { readFileContents } from '../utils';
-import InterstitialAdUnitGenerator from './InterstitialAdUnitGenerator';
+import InterstitialAdUnitGenerator, { ImageDimensionsExceedsLimitErrorKey } from './InterstitialAdUnitGenerator';
 
 export const TooFewImagesErrorKey = 'IMAGES_TOO_FEW';
 
@@ -29,6 +29,12 @@ export default class InterstitialCarouselAdUnitGenerator extends InterstitialAdU
     if (images.length < minimumImagecount) {
       throw new Error(TooFewImagesErrorKey);
     }
+
+    await Promise.all(images.map(async image => {
+      if (!await this.validateImageSize(image)) {
+        throw new Error(ImageDimensionsExceedsLimitErrorKey);
+      }
+    }));
 
     // tslint:disable-next-line:no-let
     let script;
