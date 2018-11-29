@@ -80,6 +80,8 @@ readFileContents('config.json')
 .then((config: Config) => buildAssetGenerators(config)
 .then(async (assetGenerators: AssetGenerators) => {
   const assetNames = Object.keys(assetGenerators);
+  // tslint:disable-next-line:no-console
+  console.log(`[main] Generating assets to directory: ${path.resolve('assets')}`);
   await Promise.all(assetNames.map(assetName => handleOnGenerateAsset(assetGenerators, assetName)));
   if (DEV_SERVER) {
     developmentServer.start(config.devServerPort, assetNames, async assetName => {
