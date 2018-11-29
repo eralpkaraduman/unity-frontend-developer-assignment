@@ -1,6 +1,8 @@
 Unity Frontend Developer Assignment
 ===================================
 
+[![Build Status](https://travis-ci.org/eralpkaraduman/unity-frontend-developer-assignment.svg?branch=master)](https://travis-ci.org/eralpkaraduman/unity-frontend-developer-assignment)
+
 Generates interstitial ad units to /assets folder
 - 1-interstitial-ad-unit.html  
   _Ad unit built from static mock ad data._
